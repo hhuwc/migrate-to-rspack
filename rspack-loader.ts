@@ -18,7 +18,7 @@ const parseQuery = (qs: string) => {
 function loader(this: LoaderContext<{ entry: string | string[] }>) {
     // const { entry } = this.getOptions()
     // QA-XHS
-    // 1. loader 作为entry时, rspack getOptions 获取不到参数，这里用resourceQuery?
+    // 1. loader 作为entry时, rspack getOptions 获取不到参数，这里只能用resourceQuery HACK
     // console.log(this.getOptions(), this.resourceQuery)
     const { entry } = parseQuery(this.resourceQuery)
     // console.log(entry)

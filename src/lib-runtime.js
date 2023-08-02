@@ -1,4 +1,4 @@
-export default function fibonacci(num) {
+module.exports =  function fibonacci(num) {
     let a = 0;
     let b = 1;
     for (let i = 0; i < num; i++) {
