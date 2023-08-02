@@ -1,0 +1,1 @@
+// rspack entry 不能没有资源路径

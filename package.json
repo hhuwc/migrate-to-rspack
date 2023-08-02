@@ -1,0 +1,22 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:rspack && npm run build:webpack",
+    "build:rspack": "rspack build --mode=development",
+    "build:webpack": "webpack --mode=development"
+  },
+  "dependencies": {
+    "@rspack/core": "latest",
+    "@rspack/cli": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
