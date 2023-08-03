@@ -12,3 +12,7 @@
 2. runtime 差异：查看构建产物，为什么生成的runtime代码中，会包含umd定义，而webpack没有？
 
 ![runtime](./images/runtime.png)
+
+3. reslove 选项不支持配置插件
+
+![resolve](./images/resolve.plugins.png)
