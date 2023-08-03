@@ -1,6 +1,7 @@
 
-import { EntryPlugin, EntryOptionPlugin, Compiler, library, Configuration } from 'webpack'
+import { EntryPlugin, EntryOptionPlugin, Compiler, library, Configuration, Chunk } from 'webpack'
 import path  from "path";
+import { Resolver } from 'enhanced-resolve'
 
 const loader = require.resolve("./webpack-loader")
 
@@ -27,10 +28,29 @@ class DynamicEntryPlugin {
 	}
 }
 
+class ResolvePlugin {
+    apply(resolver: Resolver) {
+        resolver.getHook('file')
+            .tapAsync('ResolvePlugin', async (request, contextResolver, callback) => {
+                // @ts-ignore
+                let issuer = request.context?.issuer || ''
+                let target = request.path || ''
+                console.log(`issuer: ${issuer}, target: ${target}`)
+                return callback()
+            })
+    }
+}
+
+
 module.exports =  {
 	cache: false,
 	context: __dirname,
 	entry: {}, // 由plugin 动态创建
+	resolve: {
+		plugins: [
+			new ResolvePlugin()
+		] as unknown as any,
+	},
 	output: {
 		clean: true,
 		path: path.resolve(__dirname, "dist/webpack") ,
@@ -47,5 +67,7 @@ module.exports =  {
     		name: 'chunk',
 		}
 	},
-	plugins: [new DynamicEntryPlugin()]
+	plugins: [
+		new DynamicEntryPlugin(),
+	]
 } as Configuration;

@@ -10,12 +10,14 @@
     "build:webpack": "webpack --mode=development"
   },
   "dependencies": {
-    "@rspack/core": "latest",
     "@rspack/cli": "latest",
-    "webpack": "latest",
-    "webpack-cli": "latest"
+    "@rspack/core": "latest",
+    "enhanced-resolve": "^5.15.0",
+    "webpack": "^5.51.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

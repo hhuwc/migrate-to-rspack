@@ -27,6 +27,11 @@ function loader(this: LoaderContext<{ entry: string | string[] }>) {
         .map(js => `"${js}": () => require("${path.resolve(__dirname, "src", js)}")`)
 
     const code = `
+    ;globalThis["entries"] = {
+        a: 10,
+        b: 20,
+        c: 30,
+    };
     export default {
         "lib-runtime": () => require("${path.resolve(__dirname, "src/lib-runtime.js",)}"),
         ${entries.join(",\n")}

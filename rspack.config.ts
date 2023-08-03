@@ -1,7 +1,21 @@
 import { Configuration } from '@rspack/core';
 import path from "path";
+import { Resolver } from 'enhanced-resolve'
 
 const loader = require.resolve("./rspack-loader")
+
+class ResolvePlugin {
+    apply(resolver: Resolver) {
+        resolver.getHook('file')
+            .tapAsync('ResolvePlugin', async (request, contextResolver, callback) => {
+                // @ts-ignore
+                let issuer = request.context?.issuer || ''
+                let target = request.path || ''
+                console.log(`issuer: ${issuer}, target: ${target}`)
+                return callback()
+            })
+    }
+}
 
 module.exports = {
 	cache: false,
@@ -16,6 +30,12 @@ module.exports = {
 		"xhs-lib-2": {
 			import: `${loader}?entry=entry-3!${__filename}?entry=entry-3`,
 		}
+	},
+	resolve: {
+        // QA-XHS: reslove 不支持配置插件
+		// 1. webpack这里配置插件可以做一些导入限制，例如禁止某些文件去引用别的某些模块中文件
+		// Unrecognized key(s) in object: 'plugins' at "resolve"
+		plugins: [new ResolvePlugin()]
 	},
 	output: {
 		library: {
